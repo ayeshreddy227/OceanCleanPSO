@@ -10,5 +10,16 @@ package BoatRoute;
  * @author imperio2494
  */
 public class dump {
-    
+    int quantity;
+	
+	public dump(int quantity){
+		this.quantity = quantity;
+	}
+	
+	
+
+	@Override
+	public String toString() {
+		return "Store [demand=" + quantity + "]";
+	}
 }
