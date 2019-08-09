@@ -57,7 +57,38 @@ public class DistributionModel {
 		for(int i=0; i<noOfShips; i++){
 			ships[i] = new Ship(shipCapacity[i]);
 		}
-	}	
+    }
+    
+    public void printModelDetails(){
+		
+		System.out.println("No Of TrashDumps : " + noOfTrashDumps);		
+		System.out.println("TrashDump Details : ");
+		for(TrashDump s: trashDumps)
+			System.out.println(s);
+		System.out.println();
+		
+		System.out.println("No Of Ships : " + noOfShips);
+		for(Ship v: ships)
+			System.out.println(v);
+		System.out.println();
+		
+		System.out.println("Distance Matrix : ");
+		System.out.print("\tDepot\t");
+		for(int k=0; k<trashDumps.length;k++)  
+			System.out.print("TrashDump"+(k+1)+"\t");
+		System.out.println();
+		
+		for(int i=0; i<distanceMatrix.length; i++){
+			System.out.print((i==0?"Depot":"TrashDump"+i)  + "\t");
+			for(int j=0; j<distanceMatrix.length; j++){
+				System.out.print(distanceMatrix[i][j] + "\t");  	
+			}
+			System.out.println();
+		}
+		
+		
+	}
+    
     private int getRandomDistance(int max){
 		return rand.nextInt(max) + 1;		
         }
