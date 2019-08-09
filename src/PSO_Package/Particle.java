@@ -19,8 +19,11 @@ public class Particle {
     double[] pBestVelocity;
     double[] pVelocity;
     
-    public Particle(){
-        
+    public Particle(int[] x){
+        this.xSolution = Optimizer.copyFromIntArray(x);	
+		this.pBest = this.xSolution;
+		setRandomVelcities(xSolution.length);
+		this.pBestVelocity = pVelocity;
     }
     
     
