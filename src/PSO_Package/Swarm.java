@@ -66,17 +66,17 @@ public class Swarm {
 
 	private double generateFitnessValue(double[] currentSolution){		
 		
-		int prevStore = 0; // since we will be starting from the depot which has node 0
+		int prevTrashDump = 0; // since we will be starting from the depot which has node 0
 		double fitnessSum = 0;
 				
 		//return the value of objective function
 		for(int i=0; i<currentSolution.length; i++){
 			int v = (int) Math.round(currentSolution[i]);
-		    fitnessSum += distanceMatrix[prevStore][v];
-		    prevStore = v;
+		    fitnessSum += distanceMatrix[prevTrashDump][v];
+		    prevTrashDump = v;
 		}
 		
-		fitnessSum += distanceMatrix[prevStore][0]; // add distance back to the depot
+		fitnessSum += distanceMatrix[prevTrashDump][0]; // add distance back to the depot
 		
 		return fitnessSum;
 	}
