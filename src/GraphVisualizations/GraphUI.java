@@ -14,7 +14,7 @@ import org.graphstream.graph.implementations.*;
 
 /**
  *
- * @author Preetham Reddy
+ * @author Ayesh Reddy
  */
 public class GraphUI {
     private String styleSheet =

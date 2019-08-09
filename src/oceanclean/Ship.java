@@ -8,7 +8,7 @@ package oceanclean;
 
 /**
  *
- * @author Preetham Reddy
+ * @author Ayesh Reddy
  */
 public class Ship {
     int capacity;
