@@ -5,6 +5,7 @@
  */
 package PSO_Package;
 
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -21,9 +22,9 @@ public class Particle {
     
     public Particle(int[] x){
         this.xSolution = Optimizer.copyFromIntArray(x);	
-		this.pBest = this.xSolution;
-		setRandomVelcities(xSolution.length);
-		this.pBestVelocity = pVelocity;
+        this.pBest = this.xSolution;
+        setRandomVelcities(xSolution.length);
+        this.pBestVelocity = pVelocity;
     }
     
     
@@ -38,4 +39,10 @@ public class Particle {
             int lower = 0;
             return (new Random().nextDouble() * (upper - lower)) + lower;
     }
+    @Override
+	public String toString() {
+		return "Particle [xSolution=" + Arrays.toString(xSolution) + ", xFitnessValue=" + xFitnessValue + ", pBest="
+				+ Arrays.toString(pBest) + ", pBestValue=" + pBestValue + ", pVelocity=" + Arrays.toString(pVelocity)
+				+ "]";
+	}
 }
