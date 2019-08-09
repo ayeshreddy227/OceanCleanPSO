@@ -5,6 +5,10 @@
  */
 package oceanclean;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -89,6 +93,40 @@ public class DistributionModel {
 		
 	}
     
+    public Map<String, List<Integer>> analyzeOptimalRoute(int[] optimalRoute){
+		Map<String, List<Integer>> distribution = new HashMap<String, List<Integer>>();
+		List<Integer> route;
+		int tripsCount =0;
+		int totalDistance = 0;
+		for(int v=0; v<noOfShips; v++){
+			route = new ArrayList<Integer>();
+			route.add(0);
+			tripsCount=0;
+			totalDistance=0;
+			int availableCapacity = ships[v].capacity; 			
+			for(int i=0; i<optimalRoute.length; i++){
+				int storeCapacity = trashDumps[optimalRoute[i]-1].trashQuantity;
+				if(availableCapacity - storeCapacity >= 0){
+					route.add(optimalRoute[i]);
+					totalDistance+=distanceMatrix[route.get(route.indexOf(optimalRoute[i])-1)][optimalRoute[i]];
+					availableCapacity = availableCapacity - storeCapacity;
+				}
+				else {
+					tripsCount++;
+					availableCapacity = ships[v].capacity; 
+					route.add(0);
+					totalDistance+=distanceMatrix[optimalRoute[i-1]][0];
+					i--;
+				}
+			}
+			route.add(0);			
+			tripsCount++;
+			distribution.put("VehicleCap:"+ ships[v].capacity+",Trips:"+tripsCount+",TotalDistance:"+totalDistance, route);
+		}
+		return distribution;
+		
+	}
+	
     private int getRandomDistance(int max){
 		return rand.nextInt(max) + 1;		
         }
