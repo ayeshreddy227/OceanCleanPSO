@@ -10,13 +10,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-
+import org.jfree.ui.RefineryUtilities;
 /**
  *
  * @author root
  */
 import PSO_Package.Swarm;
 import GraphVisualizations.GraphUI;
+import GraphVisualizations.ParticleLineGraph;
 public class Simulator {
 
     /**
@@ -70,10 +71,10 @@ public class Simulator {
 		System.out.println("---------------------------------------------------------");
 		
                
-//		ParticlesLineGraph particleGraph = new ParticlesLineGraph("Particles Progress", particleProgress);
-//		particleGraph.pack();        
+		ParticleLineGraph particleGraph = new ParticleLineGraph("Particles Progress", particleProgress);
+		particleGraph.pack();        
 //        RefineryUtilities.centerFrameOnScreen(particleGraph);
-//        particleGraph.setVisible(true);
+        particleGraph.setVisible(true);
 		
         
         System.out.println("Continue with decoding the best solution... ? Y or N");
