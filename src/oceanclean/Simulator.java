@@ -23,12 +23,12 @@ public class Simulator {
     /**
      * @param args the command line arguments
      */
-    public final static int S = 15;  // no of stores
-    public final static int[] Q = {12,15,20, 25, 19}; // capacity of each vehicle
-    public final static int K = 5;  // no of vehicles
+    public final static int S = 15;  // no of trashDumps
+    public final static int[] Q = {12,15,20, 25, 19}; // capacity of each ship
+    public final static int K = 5;  // no of ships
 
-    private final static int MAX_STORE_DEMAND = 10;
-    private final static int MAX_STORE_RECYCLABLES = 8;
+    private final static int MAX_TRASHDUMP_DEMAND = 10;
+    private final static int MAX_TRASHDUMP_RECYCLABLES = 8;
 
     public final static int N = 50;  // no of particles in swarm
     public final static int T = 50;  // iteration count
@@ -39,7 +39,7 @@ public class Simulator {
 		System.out.println("---------------------------------------------------------");		
 		
 		//Design the distribution model for the problem
-		DistributionModel dm = new DistributionModel(S, Q, K, MAX_STORE_DEMAND, MAX_STORE_RECYCLABLES);
+		DistributionModel dm = new DistributionModel(S, Q, K, MAX_TRASHDUMP_DEMAND, MAX_TRASHDUMP_RECYCLABLES);
 		dm.printModelDetails();
 		System.out.println("---------------------------------------------------------");
 		
