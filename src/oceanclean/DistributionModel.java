@@ -9,7 +9,7 @@ import java.util.Random;
 
 /**
  *
- * @author root
+ * @author Ayesh Reddy
  */
 public class DistributionModel {
     int noOfTrashDumps;
