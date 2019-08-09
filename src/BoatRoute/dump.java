@@ -16,10 +16,8 @@ public class dump {
 		this.quantity = quantity;
 	}
 	
-	
-
 	@Override
 	public String toString() {
-		return "Store [demand=" + quantity + "]";
+		return "cleanup [quantity=" + quantity + "]";
 	}
 }
