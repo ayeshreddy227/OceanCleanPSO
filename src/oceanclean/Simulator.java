@@ -36,7 +36,7 @@ public class Simulator {
 
     public final static int N = 50;  // no of particles in swarm
     public final static int T = 50;  // iteration count
-    public static void main(String[] args) {
+    public static void main(String[] args)  throws InterruptedException{
 //           String URL_IMAGE = ImageCache.class.getClassLoader().getResource("/Users/imperio2494/OceanCleanPSO/src/oceanclean/trash.png").toString();
         // TODO code application logic here
         System.out.println("---------------------------------------------------------");	
