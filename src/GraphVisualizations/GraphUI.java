@@ -11,15 +11,18 @@ import java.util.List;
 
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.*;
+import org.graphstream.ui.util.swing.ImageCache;
 
 /**
  *
  * @author Ayesh Reddy
  */
 public class GraphUI {
+//    public static final String URL_IMAGE = ImageCache.class.getClassLoader().getResource(".\trash.png").toString();
     private String styleSheet =
-	        	"node { fill-color: blue; text-color: white; size: 40px; text-size: 20px;} "+
-	            "node#0 { shape: box; fill-color: orange;  } "+
+	        	"graph {fill-mode: image-scaled-ratio-max; fill-image: url('https://ak9.picdn.net/shutterstock/videos/32493949/thumb/1.jpg');}"
+            + "node {fill-mode: image-scaled;fill-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXeWTHqmhha0af3mJ0FW2xaBzdha2v8NoOgk7qSthqGRYFoC_BUA');  text-color: yellow; size: 55px; text-size: 15px;} "+
+	            "node#0 { fill-mode: image-scaled;fill-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRt_lIcVT6RgYGll4ztJcFj51DZLWObBiWM54fB8KLpDgmxgxW-CQ'); size: 100px; } "+
 	        	"edge.marked {fill-color: red;}"+		
 	        	"edge {text-size: 20px; text-alignment: above; size: 3px; fill-color: black; arrow-shape: arrow; arrow-size: 8px;}";
 
@@ -33,6 +36,9 @@ public class GraphUI {
         graph.setStrict(false);        
         graph.display();
        	
+       
+        
+        
         
 		for(int e=0; e<edges.size()-1;e++){					
 			graph.addEdge(Integer.toString(e), Integer.toString(edges.get(e)), Integer.toString(edges.get(e+1)), true);
