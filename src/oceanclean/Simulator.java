@@ -30,9 +30,9 @@ public class Simulator {
     private final static int MAX_TRASHDUMP_DEMAND = 10;
     private final static int MAX_TRASHDUMP_RECYCLABLES = 8;
 
-    public final static int N = 50;  // no of particles in swarm
+    public final static int N = 10;  // no of particles in swarm
     public final static int T = 50;  // iteration count
-    public static void main(String[] args) {
+    public static void main(String[] args)  throws InterruptedException {
         // TODO code application logic here
         System.out.println("---------------------------------------------------------");	
 		System.out.println("Ocean Cleaning Model");
