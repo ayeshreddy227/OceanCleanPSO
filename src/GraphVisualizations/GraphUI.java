@@ -20,7 +20,7 @@ import org.graphstream.ui.util.swing.ImageCache;
 public class GraphUI {
 //    public static final String URL_IMAGE = ImageCache.class.getClassLoader().getResource(".\trash.png").toString();
     private String styleSheet =
-	        	"graph {fill-mode: image-scaled-ratio-max; fill-image: url('https://i.pinimg.com/originals/3a/1a/9a/3a1a9a981897e2fd85239cd22852cfca.jpg');}"
+	        	"graph {fill-mode: image-scaled-ratio-max; fill-image: url('https://ak9.picdn.net/shutterstock/videos/32493949/thumb/1.jpg');}"
             + "node {fill-mode: image-scaled;fill-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXeWTHqmhha0af3mJ0FW2xaBzdha2v8NoOgk7qSthqGRYFoC_BUA');  text-color: yellow; size: 55px; text-size: 15px;} "+
 	            "node#0 { fill-mode: image-scaled;fill-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRt_lIcVT6RgYGll4ztJcFj51DZLWObBiWM54fB8KLpDgmxgxW-CQ'); size: 100px; } "+
 	        	"edge.marked {fill-color: red;}"+		
