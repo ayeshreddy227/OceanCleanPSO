@@ -18,11 +18,15 @@ import org.jfree.ui.RefineryUtilities;
 import PSO_Package.Swarm;
 import GraphVisualizations.GraphUI;
 import GraphVisualizations.ParticleLineGraph;
+import org.graphstream.ui.util.swing.ImageCache;
 public class Simulator {
 
     /**
      * @param args the command line arguments
      */
+    
+    
+   
     public final static int S = 15;  // no of trashDumps
     public final static int[] Q = {12,15,20, 25, 19}; // capacity of each ship
     public final static int K = 5;  // no of ships
@@ -33,6 +37,7 @@ public class Simulator {
     public final static int N = 50;  // no of particles in swarm
     public final static int T = 50;  // iteration count
     public static void main(String[] args) {
+//           String URL_IMAGE = ImageCache.class.getClassLoader().getResource("/Users/imperio2494/OceanCleanPSO/src/oceanclean/trash.png").toString();
         // TODO code application logic here
         System.out.println("---------------------------------------------------------");	
 		System.out.println("Ocean Cleaning Model");
