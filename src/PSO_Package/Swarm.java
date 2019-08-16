@@ -11,11 +11,13 @@ package PSO_Package;
  */
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.stream.StreamSupport;
 import oceanclean.DistributionModel;
 import oceanclean.timetest;
 //import oceanclean.timetest;
@@ -319,10 +321,22 @@ public class Swarm {
 		System.out.println("No of Particles : " + particles.length);
 		
 		
-		System.out.println("Particle Details : ");
-		for(Particle p: particles)
-			System.out.println(p);
-		
+		System.out.println("Initial Particle Details : ");
+		for(Particle p: particles){
+                        List<Integer> list = new ArrayList<>();
+                        for(Double i: p.pVelocity){
+                            list.add(i.intValue());
+                        }
+                        List<Integer> list1 = new ArrayList<>();
+                        for(Double i: p.pBest){
+                            list1.add(i.intValue());
+                        }
+                        List<Integer> list2 = new ArrayList<>();
+                        for(Double i: p.xSolution){
+                            list2.add(i.intValue());
+                        }
+			System.out.println("Xfitness value, "+p.xFitnessValue+", pBest value, "+p.pBestValue+" ,pBest path, "+ list1+", Inital velocites "+list);
+                }
 		System.out.println("Global   [gBest="+Arrays.toString(gBest)+", gFitnessValue=" + gFitnessValue+"]");
 				
 	}
