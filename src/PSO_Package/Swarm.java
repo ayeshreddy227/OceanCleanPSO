@@ -29,7 +29,7 @@ class ParticleHelper extends TimerTask
     public int maxi = 0;
     Particle p;
     double[][] distanceMatrix;
-    double[] gBest;
+    static double[] gBest;
     Map<String, Map<Double, Double>> particleProgress ;
     int t;
     int pNo;
@@ -50,39 +50,26 @@ class ParticleHelper extends TimerTask
     
     public void run() { 
         if(count!=maxt){
-//        System.out.print("Timer ran " ); 
-//        System.out.println(pNo+","+t+count);
-//            pNo++;
             t++;
-             i++;
-             count++;
-             
-             
-                
-                updateVelocity(p);			
+            i++;
+            count++;
+            updateVelocity(p);			
+            updateSolution(p);
+            p.xFitnessValue = generateFitnessValue(p.xSolution);
+            if(p.xFitnessValue < p.pBestValue){
+                    p.pBest = p.xSolution;
+                    p.pBestValue = p.xFitnessValue;
+                    p.pBestVelocity = p.pVelocity;
+            }
 
-                updateSolution(p);
-                p.xFitnessValue = generateFitnessValue(p.xSolution);
-                if(p.xFitnessValue < p.pBestValue){
-                        p.pBest = p.xSolution;
-                        p.pBestValue = p.xFitnessValue;
-                        p.pBestVelocity = p.pVelocity;
-                }
-                
-//                if(particleProgress.get("p"+pNo) == null)
-//				particleProgress.put("p"+pNo, new HashMap<Double, Double>());
-//			
-//		particleProgress.get("p"+pNo).put((double) t, p.pBestValue);
-                if(i%maxp==0){
-                    synchronized(Swarm.obj1){  
-//                            Swarm.obj = true;
-                            Swarm.obj1.notify(); 
-
-                        } 
-                }
-                if(i==maxt*maxp){
-                    Swarm.obj = true;
-                }
+            if(i%maxp==0){
+                synchronized(Swarm.obj1){  
+                        Swarm.obj1.notify();
+                } 
+            }
+            if(i==maxt*maxp){
+                Swarm.obj = true;
+            }
         }
         }
     
@@ -177,7 +164,8 @@ public class Swarm {
 		for(Particle p: particles){
 			if(p.xFitnessValue < gFitnessValue){
 				gFitnessValue = p.xFitnessValue;
-				gBest = p.pBest;
+                                for(int i=0;i<p.pBest.length;i++)
+				gBest[i] = p.pBest[i];
 				gBestVelocity = p.pBestVelocity;
 			}				
 		}		
@@ -202,7 +190,6 @@ public class Swarm {
         
         public void optimizeSolutions(){
             for(Particle p: particles){
-
                 // find the new velocity
                 updateVelocity(p);			
 
@@ -230,24 +217,23 @@ public class Swarm {
                 for(int i=0;i<particles.length;i++){
                     TimerTask task = new ParticleHelper(particles[i],distanceMatrix,gBest,particles.length,particleProgress,0,i,N,T);
                     l.add(task);
-                    timer.schedule(task, 400, 400); 
+                    timer.schedule(task, 10, 10); 
                 }
                 int t = 1;
                 while(obj==false){
                     synchronized(obj1) 
                     { 
                         obj1.wait();
-//                        System.out.println("sdfs");
                         findGlobalBest();
                         System.out.print(t+ " \t\t");
                         int pNo = 1;
                         for(Particle p: particles){
-                                if(particleProgress.get("p"+pNo) == null)
-                                        particleProgress.put("p"+pNo, new HashMap<Double, Double>());
+                            if(particleProgress.get("p"+pNo) == null)
+                                    particleProgress.put("p"+pNo, new HashMap<Double, Double>());
 
-                                particleProgress.get("p"+pNo).put((double) t, p.pBestValue);			
-                                System.out.print(p.xFitnessValue + "\t" + p.pBestValue + "\t\t");
-                                pNo++;
+                            particleProgress.get("p"+pNo).put((double) t, p.pBestValue);			
+                            System.out.print(p.xFitnessValue + "\t" + p.pBestValue + "\t\t");
+                            pNo++;
                         }
                         t++;
                         System.out.println(gFitnessValue);
