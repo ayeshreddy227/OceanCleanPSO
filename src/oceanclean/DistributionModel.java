@@ -66,14 +66,19 @@ public class DistributionModel {
     public void printModelDetails(){
 		
 		System.out.println("No Of TrashDumps : " + noOfTrashDumps);		
-		System.out.println("TrashDump Details : ");
-		for(TrashDump s: trashDumps)
-			System.out.println(s);
+                int g = 1;
+		for(TrashDump s: trashDumps){
+			System.out.println("TrashDump No. "+g+" has "+s.trashQuantity+" quantity");
+                        g++;
+                }
 		System.out.println();
 		
-		System.out.println("No Of Ships : " + noOfShips);
-		for(Ship v: ships)
-			System.out.println(v);
+		System.out.println("No. Of Ships : " + noOfShips);
+                int shipNo = 1;
+		for(Ship v: ships){
+			System.out.println("Ship No. "+shipNo+" has "+v.capacity+" capacity");
+                        shipNo++;
+                }
 		System.out.println();
 		
 		System.out.println("Distance Matrix : ");
@@ -83,7 +88,7 @@ public class DistributionModel {
 		System.out.println();
 		
 		for(int i=0; i<distanceMatrix.length; i++){
-			System.out.print((i==0?"Depot":"TrashDump"+i)  + "\t");
+			System.out.print((i==0?"Depot"+"\t":"TrashDump"+i)  + "\t");
 			for(int j=0; j<distanceMatrix.length; j++){
 				System.out.print(distanceMatrix[i][j] + "\t");  	
 			}

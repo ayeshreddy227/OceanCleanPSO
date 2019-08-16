@@ -93,7 +93,7 @@ public class Simulator {
                 
                     Path currentRelativePath = (Path) Paths.get("");
                     String s = currentRelativePath.toAbsolutePath().toString();
-                    System.out.println("Current relative path is: " + s);
+                    
 
                     String path = s + "\\Visualization_Helper\\values.csv";
                     PrintWriter pw = new PrintWriter(new File(path));
@@ -107,24 +107,23 @@ public class Simulator {
                
 		ParticleLineGraph particleGraph = new ParticleLineGraph("Particles Progress", particleProgress);
 		particleGraph.pack();        
-//        RefineryUtilities.centerFrameOnScreen(particleGraph);
-        particleGraph.setVisible(true);
+                particleGraph.setVisible(true);
 		
         
-        System.out.println("Continue with decoding the best solution... ? Y or N");
+        System.out.println("Please select Y for visual representation or press any other key to quit");
         Scanner sc = new Scanner(System.in);
         if(sc.hasNext()){
         	if(sc.nextLine().equals("Y")){
         		
         		System.out.println("Decode gBest Solution");
         		System.out.println("---------------------------------------------------------");
-        		//Decode the gBest Solution
+        		
         		int[] optimalRoute =  swarm.decodeOptimalSolution();
         		System.out.println("Optimal Route : " + Arrays.toString(optimalRoute) );
         		
         		System.out.println("---------------------------------------------------------");
-        		//Print analysis for optimal route for the distribution model
-        		System.out.println("Analysis of Optimal Route for dropOff Only: ");
+        		
+        		System.out.println("Analysis of Optimal Route for Collecting Trash and Dumping in MotherShip ");
         		System.out.println("---------------------------------------------------------");
         		GraphUI gui = new GraphUI();
         		Map<String, List<Integer>> distributionMap =  dm.analyzeOptimalRoute(optimalRoute);		
@@ -134,20 +133,14 @@ public class Simulator {
         			gui.displayGraph("Graph"+entry.getKey(),entry.getValue());
         		}
         		
-        		System.out.println("---------------------------------------------------------");        		
-        		System.out.println("Analysis of Optimal Route for simultaneously pickup and dropOff: ");
-        		System.out.println("---------------------------------------------------------");
-//        		distributionMap = dm.analyzeOptimalRouteSimultaneous(optimalRoute);
-//        		for (Map.Entry<String, List<Integer>> entry : distributionMap.entrySet()) {
-//        		    System.out.println(entry.getKey()+" -> "+entry.getValue());
-//        		}
+        		
         		
         	}        	
         }
         
-        //particleGraph.dispose();
+        particleGraph.dispose();
         System.out.println("---------------------------------------------------------");
-        System.out.println("PSO implementation for CVRP is done !! :) ");
+        System.out.println("END");
 		sc.close();
 		
 		
