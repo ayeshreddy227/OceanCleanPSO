@@ -20,7 +20,12 @@ import GraphVisualizations.GraphUI;
 import GraphVisualizations.ParticleLineGraph;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.graphstream.ui.util.swing.ImageCache;
 public class Simulator {
 
@@ -79,14 +84,24 @@ public class Simulator {
 //			swarm.printIterationResults(t, particleProgress);
                         break;
 		}
-//                for(int t=1; t<=T;t++){
-//			swarm.optimizeSolutions();	
-//			swarm.printIterationResults(t, particleProgress);
-////                        break;
-//		}
-                PrintWriter pw = new PrintWriter(new File("C:\\Users\\Preetham Reddy\\Desktop\\test1.csv"));
-                pw.write(sb.toString());
-                pw.close();
+                
+                    //                for(int t=1; t<=T;t++){
+        //			swarm.optimizeSolutions();
+        //			swarm.printIterationResults(t, particleProgress);
+        ////                        break;
+        //		}
+                
+                    Path currentRelativePath = (Path) Paths.get("");
+                    String s = currentRelativePath.toAbsolutePath().toString();
+                    System.out.println("Current relative path is: " + s);
+
+                    String path = s + "\\Visualization_Helper\\values.csv";
+                    PrintWriter pw = new PrintWriter(new File(path));
+                    pw.write(sb.toString());
+                    pw.close();
+                
+                
+                
 		System.out.println("---------------------------------------------------------");
 		
                
