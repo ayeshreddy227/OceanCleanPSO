@@ -14,11 +14,12 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
 import java.util.TimerTask;
 import oceanclean.DistributionModel;
 import oceanclean.timetest;
 //import oceanclean.timetest;
-class Helper extends TimerTask 
+class ParticleHelper extends TimerTask 
 {   
     
     public static int i = 0; 
@@ -28,37 +29,48 @@ class Helper extends TimerTask
     public int maxi = 0;
     Particle p;
     double[][] distanceMatrix;
-    double[] gBest;
-    Helper ( Particle particles, double[][] dm,double[] gBest,int maxi ){
+    static double[] gBest;
+    Map<String, Map<Double, Double>> particleProgress ;
+    int t;
+    int pNo;
+    int count;
+    int maxp;
+    int maxt;
+    ParticleHelper ( Particle particles, double[][] dm,double[] gBest,int maxi,Map<String, Map<Double, Double>> particleProgress,int t,int pNo,int maxp, int maxt  ){
         this.p = particles;
         this.distanceMatrix = dm;
         this.gBest=gBest;
         this.maxi = maxi;
+        this.maxp = maxp;
+        this.maxt = maxt;
+        this.particleProgress = particleProgress;
+        this.t = t;
+        this.pNo = pNo;
     }
     
     public void run() { 
-//        System.out.println("Timer ran" ); 
-             
-//                System.out.println("gggg");
-                updateVelocity(p);			
+        if(count!=maxt){
+            t++;
+            i++;
+            count++;
+            updateVelocity(p);			
+            updateSolution(p);
+            p.xFitnessValue = generateFitnessValue(p.xSolution);
+            if(p.xFitnessValue < p.pBestValue){
+                    p.pBest = p.xSolution;
+                    p.pBestValue = p.xFitnessValue;
+                    p.pBestVelocity = p.pVelocity;
+            }
 
-                updateSolution(p);
-                p.xFitnessValue = generateFitnessValue(p.xSolution);
-                if(p.xFitnessValue < p.pBestValue){
-                        p.pBest = p.xSolution;
-                        p.pBestValue = p.xFitnessValue;
-                        p.pBestVelocity = p.pVelocity;
-                }
-                i++;
-                if(i==maxi){
-//                    synchronized(Swarm.obj) 
-//                        {  
-//                            System.out.println("!!!!");
-                            Swarm.obj = true;
-//                            Swarm.obj.notify(); 
-
-//                        } 
-                }
+            if(i%maxp==0){
+                synchronized(Swarm.obj1){  
+                        Swarm.obj1.notify();
+                } 
+            }
+            if(i==maxt*maxp){
+                Swarm.obj = true;
+            }
+        }
         }
     
         public void updateVelocity(Particle p){
@@ -109,6 +121,7 @@ class Helper extends TimerTask
 
 public class Swarm {
      public static boolean obj; 
+     public static Swarm obj1;
     double[] gBest;
 	double gFitnessValue;
 	double[] gBestVelocity;
@@ -117,6 +130,7 @@ public class Swarm {
 
 	public Swarm(int noOfParticles, DistributionModel dm){
 		obj = false;
+                obj1 = this;
 		this.distanceMatrix = dm.getDistanceMatrix();	
 		
 		int solutionLength = dm.getNoOfTrashDumps();
@@ -150,7 +164,8 @@ public class Swarm {
 		for(Particle p: particles){
 			if(p.xFitnessValue < gFitnessValue){
 				gFitnessValue = p.xFitnessValue;
-				gBest = p.pBest;
+                                for(int i=0;i<p.pBest.length;i++)
+				gBest[i] = p.pBest[i];
 				gBestVelocity = p.pBestVelocity;
 			}				
 		}		
@@ -172,52 +187,63 @@ public class Swarm {
 		
 		return fitnessSum;
 	}
-        public void optimizeSolutions()  throws InterruptedException{
-                int i=0;
-		for(Particle p:particles){
-                    TimerTask task = new Helper(p,distanceMatrix,gBest,particles.length); 
-                    task.run();
-                    i++;
-//                    if(i==particles.length){
-//                        while(task.geti()==i){
-//                        
-//                        }
-//                    }
+        
+        public void optimizeSolutions(){
+            for(Particle p: particles){
+                // find the new velocity
+                updateVelocity(p);			
+
+                // find new solution
+                updateSolution(p);
+
+                // update the fitness value of the particles
+                p.xFitnessValue = generateFitnessValue(p.xSolution);
+
+                // update pBest of the particle
+                if(p.xFitnessValue < p.pBestValue){
+                        p.pBest = p.xSolution;
+                        p.pBestValue = p.xFitnessValue;
+                        p.pBestVelocity = p.pVelocity;
                 }
+
+            }
+
+            //update the gBest after this one iteration
+            findGlobalBest();
+        }
+        public void optimiseSolutions(Map<String, Map<Double, Double>> particleProgress, int T, int N)  throws InterruptedException{
+                Timer timer = new Timer(); 
+                List<TimerTask> l = new ArrayList<TimerTask>();
+                for(int i=0;i<particles.length;i++){
+                    TimerTask task = new ParticleHelper(particles[i],distanceMatrix,gBest,particles.length,particleProgress,0,i,N,T);
+                    l.add(task);
+                    timer.schedule(task, 10, 10); 
+                }
+                int t = 1;
                 while(obj==false){
-                    System.out.println("abc");
+                    synchronized(obj1) 
+                    { 
+                        obj1.wait();
+                        findGlobalBest();
+                        System.out.print(t+ " \t\t");
+                        int pNo = 1;
+                        for(Particle p: particles){
+                            if(particleProgress.get("p"+pNo) == null)
+                                    particleProgress.put("p"+pNo, new HashMap<Double, Double>());
+
+                            particleProgress.get("p"+pNo).put((double) t, p.pBestValue);			
+                            System.out.print(p.xFitnessValue + "\t" + p.pBestValue + "\t\t");
+                            pNo++;
+                        }
+                        t++;
+                        System.out.println(gFitnessValue);
+
+                    }
                 }
-//                synchronized(obj) 
-//                { 
-//                    //this thread waits until i reaches 4 
-//                    obj.wait(); 
-//                    
-//                } 
-                findGlobalBest();
-//		for(Particle p: particles){
-//			
-//			// find the new velocity
-//			updateVelocity(p);			
-//			
-//			// find new solution
-//			updateSolution(p);
-//			
-//			// update the fitness value of the particles
-//			p.xFitnessValue = generateFitnessValue(p.xSolution);
-//			
-//			// update pBest of the particle
-//			if(p.xFitnessValue < p.pBestValue){
-//				p.pBest = p.xSolution;
-//				p.pBestValue = p.xFitnessValue;
-//				p.pBestVelocity = p.pVelocity;
-//			}
-//		
-//		}
-//		
-//		//update the gBest after this one iteration
-//		findGlobalBest();
-		
-		
+                System.out.println("Done");
+                for(TimerTask i:l){
+                    i.cancel();
+                }
 	}
 
 	
