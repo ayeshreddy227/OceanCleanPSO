@@ -13,6 +13,7 @@ class Helper extends TimerTask
     public void run() 
     { 
         System.out.println("Timer ran" ); 
+        ++i;
         if(i == 4) 
         { 
             synchronized(timetest.obj) 
@@ -40,7 +41,7 @@ public class timetest {
         TimerTask task = new Helper(); 
           
         // scheduling the timer instance 
-        timer.schedule(task, 2, 100); 
+        timer.schedule(task, 1000, 2000); 
           
         // fetching the scheduled execution time of  
         // the most recent actual execution of the task 

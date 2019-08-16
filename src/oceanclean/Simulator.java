@@ -71,7 +71,8 @@ public class Simulator {
 		//Optimize the solution and return the best solution after the iterations terminate
 		for(int t=1; t<=T;t++){
 			swarm.optimizeSolutions();	
-			swarm.printIterationResults(t, particleProgress);			
+			swarm.printIterationResults(t, particleProgress);
+//                        break;
 		}
 		System.out.println("---------------------------------------------------------");
 		
