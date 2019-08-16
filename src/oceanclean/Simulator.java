@@ -18,6 +18,9 @@ import org.jfree.ui.RefineryUtilities;
 import PSO_Package.Swarm;
 import GraphVisualizations.GraphUI;
 import GraphVisualizations.ParticleLineGraph;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import org.graphstream.ui.util.swing.ImageCache;
 public class Simulator {
 
@@ -36,7 +39,7 @@ public class Simulator {
 
     public final static int N = 50;  // no of particles in swarm
     public final static int T = 50;  // iteration count
-    public static void main(String[] args)  throws InterruptedException{
+    public static void main(String[] args)  throws InterruptedException, FileNotFoundException{
 //           String URL_IMAGE = ImageCache.class.getClassLoader().getResource("/Users/imperio2494/OceanCleanPSO/src/oceanclean/trash.png").toString();
         // TODO code application logic here
         System.out.println("---------------------------------------------------------");	
@@ -64,14 +67,15 @@ public class Simulator {
 		for(int i=0; i<swarm.getParticles().length; i++)
 			System.out.print("f(x:"+(i+1)+") f(pBest:"+(i+1)+")\t");		
 		
+                StringBuilder sb = new StringBuilder();
 		System.out.println("f(gBest)");
-		swarm.printIterationResults(0, particleProgress);
+		swarm.printIterationResults(0, particleProgress, sb);
 		
 				
 		//Optimize the solution and return the best solution after the iterations terminate
                 
 		for(int t=1; t<=T;t++){
-			swarm.optimiseSolutions(particleProgress,N,T);	
+			swarm.optimiseSolutions(particleProgress,N,T,sb);	
 //			swarm.printIterationResults(t, particleProgress);
                         break;
 		}
@@ -80,6 +84,9 @@ public class Simulator {
 //			swarm.printIterationResults(t, particleProgress);
 ////                        break;
 //		}
+                PrintWriter pw = new PrintWriter(new File("C:\\Users\\Preetham Reddy\\Desktop\\test1.csv"));
+                pw.write(sb.toString());
+                pw.close();
 		System.out.println("---------------------------------------------------------");
 		
                

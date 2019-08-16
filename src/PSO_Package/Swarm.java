@@ -211,7 +211,7 @@ public class Swarm {
             //update the gBest after this one iteration
             findGlobalBest();
         }
-        public void optimiseSolutions(Map<String, Map<Double, Double>> particleProgress, int T, int N)  throws InterruptedException{
+        public void optimiseSolutions(Map<String, Map<Double, Double>> particleProgress, int T, int N, StringBuilder sb)  throws InterruptedException{
                 Timer timer = new Timer(); 
                 List<TimerTask> l = new ArrayList<TimerTask>();
                 for(int i=0;i<particles.length;i++){
@@ -233,9 +233,13 @@ public class Swarm {
 
                             particleProgress.get("p"+pNo).put((double) t, p.pBestValue);			
                             System.out.print(p.xFitnessValue + "\t" + p.pBestValue + "\t\t");
+                            sb.append(Double.toString(p.pBestValue));
+                            sb.append(",");
                             pNo++;
                         }
                         t++;
+                        sb.setLength(sb.length() - 1);
+                        sb.append("\r\n");
                         System.out.println(gFitnessValue);
 
                     }
@@ -323,7 +327,7 @@ public class Swarm {
 				
 	}
 	
-	public void printIterationResults(int t, Map<String, Map<Double, Double>> particleProgress){
+	public void printIterationResults(int t, Map<String, Map<Double, Double>> particleProgress, StringBuilder sb){
 		System.out.print(t+ " \t\t");
 		int pNo = 1;
 		for(Particle p: particles){
@@ -332,8 +336,14 @@ public class Swarm {
 			
 			particleProgress.get("p"+pNo).put((double) t, p.pBestValue);			
 			System.out.print(p.xFitnessValue + "\t" + p.pBestValue + "\t\t");
+                        
+                        sb.append(Double.toString(p.pBestValue));
+                        sb.append(",");
 			pNo++;
 		}
+                
+                sb.setLength(sb.length() - 1);
+                sb.append("\r\n");
 		System.out.println(gFitnessValue);
 	}
 
