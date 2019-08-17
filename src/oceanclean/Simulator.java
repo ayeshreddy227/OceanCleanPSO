@@ -5,6 +5,7 @@
  */
 package oceanclean;
 
+import GraphVisualizations.Animation;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -44,7 +45,7 @@ public class Simulator {
 
     public final static int N = 50;  // no of particles in swarm
     public final static int T = 50;  // iteration count
-    public static void main(String[] args)  throws InterruptedException, FileNotFoundException{
+    public static void main(String[] args)  throws InterruptedException, FileNotFoundException, IOException{
 //           String URL_IMAGE = ImageCache.class.getClassLoader().getResource("/Users/imperio2494/OceanCleanPSO/src/oceanclean/trash.png").toString();
         // TODO code application logic here
         System.out.println("---------------------------------------------------------");	
@@ -95,7 +96,7 @@ public class Simulator {
                     String s = currentRelativePath.toAbsolutePath().toString();
                     
 
-                    String path = s + "\\Visualization_Helper\\values.csv";
+                    String path = s + "\\values.csv";
                     PrintWriter pw = new PrintWriter(new File(path));
                     pw.write(sb.toString());
                     pw.close();
@@ -109,6 +110,18 @@ public class Simulator {
 		particleGraph.pack();        
                 particleGraph.setVisible(true);
 		
+                
+                System.out.println("Please select Y for animation or press any other key to quit");
+                Scanner gc = new Scanner(System.in);
+                
+                if(gc.hasNext()){
+                    if(gc.nextLine().equals("Y")){
+                        Animation a = new Animation();
+                    }
+                }
+                
+                System.out.println("---------------------------------------------------------");
+                
         
         System.out.println("Please select Y for visual representation or press any other key to quit");
         Scanner sc = new Scanner(System.in);

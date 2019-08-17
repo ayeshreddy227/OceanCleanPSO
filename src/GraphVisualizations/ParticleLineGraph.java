@@ -35,7 +35,7 @@ public class ParticleLineGraph extends ApplicationFrame {
 		final XYDataset dataset = createDataset(particleProgress);
 		final JFreeChart chart = createChart(title, dataset);
 		final ChartPanel chartPanel = new ChartPanel(chart);
-		chartPanel.setPreferredSize(new java.awt.Dimension(1500, 1270));
+		chartPanel.setPreferredSize(new java.awt.Dimension(1000, 800));
 		setContentPane(chartPanel);
 
 	}

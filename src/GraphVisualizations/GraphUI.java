@@ -61,6 +61,6 @@ public class GraphUI {
 	}
 	
 	private void sleep() {
-        try { Thread.sleep(1500); } catch (Exception e) {}
+        try { Thread.sleep(500); } catch (Exception e) {}
     }
 }
