@@ -6,6 +6,7 @@
 package GraphVisualizations;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Path;
@@ -20,7 +21,7 @@ public class Animation {
     public Animation() throws IOException{
         Path currentRelativePath = (Path) Paths.get("");
         String s = currentRelativePath.toAbsolutePath().toString();
-        String path = s + "\\visualizer.py";
+        String path = s + File.separator+"visualizer.py";
         //System.out.print(path);
         ProcessBuilder pb = new ProcessBuilder("python",path);
         p = pb.start();
