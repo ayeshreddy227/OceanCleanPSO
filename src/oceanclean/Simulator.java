@@ -27,7 +27,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.graphstream.ui.util.swing.ImageCache;
 public class Simulator {
 
     /**
@@ -96,7 +95,7 @@ public class Simulator {
                     String s = currentRelativePath.toAbsolutePath().toString();
                     
 
-                    String path = s + "\\values.csv";
+                    String path = s + File.separator+"values.csv";
                     PrintWriter pw = new PrintWriter(new File(path));
                     pw.write(sb.toString());
                     pw.close();
