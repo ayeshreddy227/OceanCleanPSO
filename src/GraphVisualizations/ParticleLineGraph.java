@@ -46,7 +46,7 @@ public class ParticleLineGraph extends ApplicationFrame {
 		XYSeriesCollection dataset = new XYSeriesCollection();
 		
 		for (Entry<String, Map<Double, Double>> entry : particleProgress.entrySet()) {
-		    //System.out.println(entry.getKey()+" -> "+entry.getValue());		    
+		    		    
 			
 			XYSeries series = new XYSeries(entry.getKey());
 			for(Entry<Double,Double> e: entry.getValue().entrySet()){
@@ -66,18 +66,18 @@ public class ParticleLineGraph extends ApplicationFrame {
    private JFreeChart createChart(String title, XYDataset dataset) {
         
 	   JFreeChart chart = ChartFactory.createXYLineChart(
-        	title,      			  // chart title
-            "Iteration Count",        // x axis label
-            "pBest",                  // y axis label
-            dataset,                  // data
+        	title,      			  
+            "Iteration Count",        
+            "pBest",                  
+            dataset,                  
             PlotOrientation.VERTICAL,
-            true,                     // include legend
-            true,                     // tool tips
-            false                     // url
+            true,                     
+            true,                     
+            false                     
         );
         chart.setBackgroundPaint(Color.white);
         
-        // get a reference to the plot for further customization...
+        
         final XYPlot plot = chart.getXYPlot();
         plot.setBackgroundPaint(Color.lightGray);
         plot.setDomainGridlinePaint(Color.white);

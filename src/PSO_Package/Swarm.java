@@ -20,7 +20,7 @@ import java.util.TimerTask;
 import java.util.stream.StreamSupport;
 import oceanclean.DistributionModel;
 import oceanclean.timetest;
-//import oceanclean.timetest;
+
 class ParticleHelper extends TimerTask 
 {   
     
@@ -104,17 +104,17 @@ class ParticleHelper extends TimerTask
 	}
         private double generateFitnessValue(double[] currentSolution){		
 		
-		int prevTrashDump = 0; // since we will be starting from the depot which has node 0
+		int prevTrashDump = 0; 
 		double fitnessSum = 0;
 				
-		//return the value of objective function
+		
 		for(int i=0; i<currentSolution.length; i++){
 			int v = (int) Math.round(currentSolution[i]);
 		    fitnessSum += distanceMatrix[prevTrashDump][v];
 		    prevTrashDump = v;
 		}
 		
-		fitnessSum += distanceMatrix[prevTrashDump][0]; // add distance back to the depot
+		fitnessSum += distanceMatrix[prevTrashDump][0]; 
 		
 		return fitnessSum;
 	}
@@ -137,14 +137,13 @@ public class Swarm {
 		
 		int solutionLength = dm.getNoOfTrashDumps();
 		
-		// define the possible solution scope
 		int[] possibleSolution = new int[solutionLength];	
 		
 		for(int i=0; i<solutionLength; i++){
 			possibleSolution[i] = i+1;
 		}
 		
-		// initialize the Swarm Particles
+		
 		this.particles = new Particle[noOfParticles];
 		
 		for(int i=0; i<noOfParticles; i++){
@@ -154,7 +153,7 @@ public class Swarm {
 			particles[i].pBestValue    = generateFitnessValue(particles[i].pBest);			
 		}
 		
-		//find global best	
+			
 		gBest = new double[solutionLength];	
 		gBestVelocity = new double[solutionLength];
 		gFitnessValue = Double.MAX_VALUE;
@@ -175,33 +174,33 @@ public class Swarm {
 
 	private double generateFitnessValue(double[] currentSolution){		
 		
-		int prevTrashDump = 0; // since we will be starting from the depot which has node 0
+		int prevTrashDump = 0; 
 		double fitnessSum = 0;
 				
-		//return the value of objective function
+		
 		for(int i=0; i<currentSolution.length; i++){
 			int v = (int) Math.round(currentSolution[i]);
 		    fitnessSum += distanceMatrix[prevTrashDump][v];
 		    prevTrashDump = v;
 		}
 		
-		fitnessSum += distanceMatrix[prevTrashDump][0]; // add distance back to the depot
+		fitnessSum += distanceMatrix[prevTrashDump][0]; 
 		
 		return fitnessSum;
 	}
         
         public void optimizeSolutions(){
             for(Particle p: particles){
-                // find the new velocity
+                
                 updateVelocity(p);			
 
-                // find new solution
+               
                 updateSolution(p);
 
-                // update the fitness value of the particles
+                
                 p.xFitnessValue = generateFitnessValue(p.xSolution);
 
-                // update pBest of the particle
+                
                 if(p.xFitnessValue < p.pBestValue){
                         p.pBest = p.xSolution;
                         p.pBestValue = p.xFitnessValue;
@@ -210,7 +209,7 @@ public class Swarm {
 
             }
 
-            //update the gBest after this one iteration
+            
             findGlobalBest();
         }
         public void optimiseSolutions(Map<String, Map<Double, Double>> particleProgress, int T, int N, StringBuilder sb)  throws InterruptedException{
@@ -301,7 +300,7 @@ public class Swarm {
 		
 		for(int i=0; i<optimalRoute.length;i++){
 			if(indicies.get(gBest[i]).size() > 1){
-				// find the lowest velocity and add that first				
+								
 				int ii = i;
 				for(int k=0; k<indicies.get(gBest[ii]).size(); k++){					
 					optimalRoute[i] = indicies.get(gBest[ii]).get(k) + 1;

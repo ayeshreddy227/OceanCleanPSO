@@ -34,7 +34,7 @@ public class DistributionModel {
 		trashDumps = new TrashDump[trashDumpCount];
 		ships = new Ship[shipCount];
 		
-		//initialize the distance between trashDumps and trashDump demands 
+		
 		for(int i=0; i<noOfTrashDumps+1; i++){
 			for(int j=i; j<noOfTrashDumps+1; j++){
 				if(i==j)
@@ -57,7 +57,7 @@ public class DistributionModel {
 			trashDumps[i] = new TrashDump(demand, rec);
 		}
 		
-		//initialize capacity of each Ship
+		
 		for(int i=0; i<noOfShips; i++){
 			ships[i] = new Ship(shipCapacity[i]);
 		}
@@ -126,7 +126,7 @@ public class DistributionModel {
 			}
 			route.add(0);			
 			tripsCount++;
-			distribution.put("VehicleCap:"+ ships[v].capacity+",Trips:"+tripsCount+",TotalDistance:"+totalDistance, route);
+			distribution.put("ShipCap:"+ ships[v].capacity+",Trips:"+tripsCount+",TotalDistance:"+totalDistance, route);
 		}
 		return distribution;
 		

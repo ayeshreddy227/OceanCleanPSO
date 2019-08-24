@@ -29,12 +29,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 public class Simulator {
 
-    /**
-     * @param args the command line arguments
-     */
-    
-    
-   
     public final static int S = 15;  // no of trashDumps
     public final static int[] Q = {12,15,20, 25, 19}; // capacity of each ship
     public final static int K = 5;  // no of ships
@@ -45,20 +39,20 @@ public class Simulator {
     public final static int N = 50;  // no of particles in swarm
     public final static int T = 50;  // iteration count
     public static void main(String[] args)  throws InterruptedException, FileNotFoundException, IOException{
-//           String URL_IMAGE = ImageCache.class.getClassLoader().getResource("/Users/imperio2494/OceanCleanPSO/src/oceanclean/trash.png").toString();
-        // TODO code application logic here
+
+        
         System.out.println("---------------------------------------------------------");	
 		System.out.println("Ocean Cleaning Model");
 		System.out.println("---------------------------------------------------------");		
 		
-		//Design the distribution model for the problem
+		
 		DistributionModel dm = new DistributionModel(S, Q, K, MAX_TRASHDUMP_DEMAND, MAX_TRASHDUMP_RECYCLABLES);
 		dm.printModelDetails();
 		System.out.println("---------------------------------------------------------");
 		
 		System.out.println("Swarm Model");
 		System.out.println("---------------------------------------------------------");
-		//Initialize the swarm for the distribution model
+		
 		Swarm swarm = new Swarm(N, dm);
 		swarm.printSwarmDetails();
 		System.out.println("---------------------------------------------------------");
@@ -67,7 +61,7 @@ public class Simulator {
 		System.out.println("---------------------------------------------------------");
 		Map<String, Map<Double, Double>> particleProgress = new HashMap<String, Map<Double,Double>>();
 		
-		//print iteration 0 results
+		
 		System.out.print("Iteration\t");
 		for(int i=0; i<swarm.getParticles().length; i++)
 			System.out.print("f(x:"+(i+1)+") f(pBest:"+(i+1)+")\t");		
@@ -77,20 +71,15 @@ public class Simulator {
 		swarm.printIterationResults(0, particleProgress, sb);
 		
 				
-		//Optimize the solution and return the best solution after the iterations terminate
+		
                 
 		for(int t=1; t<=T;t++){
 			swarm.optimiseSolutions(particleProgress,N,T,sb);	
-//			swarm.printIterationResults(t, particleProgress);
+
                         break;
 		}
                 
-                    //                for(int t=1; t<=T;t++){
-        //			swarm.optimizeSolutions();
-        //			swarm.printIterationResults(t, particleProgress);
-        ////                        break;
-        //		}
-                
+         
                     Path currentRelativePath = (Path) Paths.get("");
                     String s = currentRelativePath.toAbsolutePath().toString();
                     
@@ -141,7 +130,7 @@ public class Simulator {
         		Map<String, List<Integer>> distributionMap =  dm.analyzeOptimalRoute(optimalRoute);		
         		        		
         		for (Map.Entry<String, List<Integer>> entry : distributionMap.entrySet()) {
-        		    System.out.println(entry.getKey()+" -> "+entry.getValue());		    
+                                System.out.println(entry.getKey()+" -> "+entry.getValue());		    
         			gui.displayGraph("Graph"+entry.getKey(),entry.getValue());
         		}
         		

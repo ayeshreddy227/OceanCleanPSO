@@ -22,10 +22,9 @@ public class Animation {
         Path currentRelativePath = (Path) Paths.get("");
         String s = currentRelativePath.toAbsolutePath().toString();
         String path = s + File.separator+"visualizer.py";
-        //System.out.print(path);
+        
         ProcessBuilder pb = new ProcessBuilder("python",path);
         p = pb.start();
-        BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
-        System.out.print(in.readLine());
+        
     }
 }

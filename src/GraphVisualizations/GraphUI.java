@@ -29,7 +29,7 @@ public class GraphUI {
 		
 		Graph graph = new MultiGraph(gName);
 		graph.addAttribute("ui.stylesheet", styleSheet);
-		//graph.addAttribute("ui.label", gName);
+		
 		graph.setAutoCreate(true);
         graph.setStrict(false);        
         graph.display();
